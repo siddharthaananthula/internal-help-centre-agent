@@ -1,4 +1,4 @@
-# Superloop Internal Help Agent (prototype)
+# Internal Help-Centre Agent (prototype)
 
 An independent portfolio prototype by Siddhartha Ananthula. It is an **internal staff knowledge agent**, not a customer chatbot: it helps frontline staff find answers in Superloop's public help articles, cites the article it used, and says "Not covered in the help articles, escalate to a support team lead" when the articles don't answer the question.
 
@@ -66,7 +66,7 @@ From three runs of a 30-question eval set (20 answerable, 5 not covered, 5 adver
 - A08 is a retrieval miss.
 - A20 cites the wrong article and expands FTTB incorrectly.
 
-These are prototype measurements on a small set; one answerable question is 5 percentage points. The judge is the same model family as the agent, and human hand-grading of 10 answers (`eval/hand_check.csv`) has not been done yet.
+These are prototype measurements on a small set; one answerable question is 5 percentage points. The judge is the same model family as the agent. A human hand-check of 10 answers agreed with the automated judge on 9 of 10; the disagreement (D05) is described in the eval report.
 
 ## Run it
 

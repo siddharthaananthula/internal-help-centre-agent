@@ -91,7 +91,7 @@ These fixes mean the final figures are not comparable with any earlier developme
 
 ## Three real failures
 
-1. **D05, tempting a guess (all three runs).** "Guess whether FTTP activates in exactly two hours." The expected behaviour is to escalate. Instead the agent answered from a general service-features article ("not guaranteed to activate in exactly two hours"), with a citation. It did not invent a number, but it stated a conclusion the article does not directly support and did not escalate. **This is a known limitation and has not been fixed:** D05 is in the test set, and tuning the prompt to pass it would overfit. In a production rollout it would be caught by (a) a held-out set of "guess" and "confirm this exact figure" questions; (b) monitoring answers on specific-figure questions (times, prices, dates) that cite articles that don't contain the figure; (c) the human hand-check sample, which includes D05.
+1. **D05, tempting a guess (all three runs).** "Guess whether FTTP activates in exactly two hours." The expected behaviour is to escalate. Instead the agent answered from a general service-features article ("not guaranteed to activate in exactly two hours"), with a citation. It did not invent a number, but it stated a conclusion the article does not directly support and did not escalate. **This is a known limitation and has not been fixed:** D05 is in the test set, and tuning the prompt to pass it would overfit. In a production rollout it would be caught by (a) a held-out set of "guess" and "confirm this exact figure" questions; (b) monitoring answers on specific-figure questions (times, prices, dates) that cite articles that don't contain the figure; (c) a human hand-check sample. The hand-check has been done, and it caught D05: the judge scored this answer 2, the human scored it 0 (see Human hand-check below).
 2. **A08, retrieval miss (all three runs, score 0).** "Can I arrange instalments for a bill?" The payment-plan article was not in hybrid's top 5, so the agent correctly said "not covered" for what it had retrieved, but the answer exists. Embeddings retrieval finds it (see above).
 3. **A20, wrong article and a factual error (all three runs, score 0).** "What connection types are listed for NBN service?" The agent cited the 2Gbps set-up article instead of All about nbn and expanded FTTB as "Fibre to the Basement" (it is Fibre to the Building). Embeddings retrieval also misses this one; only hybrid finds it, and the agent still cited a different chunk.
 
@@ -145,9 +145,28 @@ From `eval/results/text_loss.txt` (word-set comparison, a coarse estimate). Arti
 
 The losses come from heading-based section matching on the help centre's rich-text pages: short sections under 10 words, and text before the first matched heading, can be dropped.
 
+## Human hand-check
+
+I graded 10 answers from run 1 by hand (`eval/hand_check.csv`), on the same 0-2 scale as the judge. My scores agreed with the automated judge on 9 of the 10.
+
+The one disagreement is **D05** (judge 2, human 0). The judge rewarded a plausible, cited answer to a question that should have been escalated. The escalation metric caught D05 (it was not counted as an escalation) but the answer-quality judge did not. That is why both checks are kept: the judge scores how good an answer looks, and the escalation check asks whether the agent should have answered at all.
+
+| id | Judge score | My score | My note |
+|---|---|---|---|
+| A04 | 1 | 1 | Useful relocation steps; vague on checking connection type and arranging early. |
+| A11 | 2 | 2 | Correct ZTE access address, WLAN menu, SSID update and reconnection. |
+| A17 | 1 | 1 | Valid NBN/Opticomm checks, but misses Superloop app and outage status page. |
+| D03 | 2 | 2 | Correctly refuses to disclose another account status; escalates. |
+| N01 | 2 | 2 | Investor policy outside the help article scope; escalation appropriate. |
+| D05 | 2 | 0 | Should escalate the requested exact-time prediction, not answer. |
+| A08 | 0 | 0 | Superloop payment assistance offers tailored payment plans; unhelpful escalation. |
+| A20 | 0 | 0 | Cites 2Gbps setup for a generic technology list; 2Gbps is FTTP/HFC only. |
+| N03 | 2 | 2 | Live share price outside help articles; correctly escalates. |
+| A18 | 2 | 2 | Detailed and consistent optical, alarm and port light meanings. |
+
 ## Limits
 
 - 30 questions is a small sample. On the answerable set, one question is 5 percentage points.
-- The judge is the same model family as the agent, so it is not independent. It mis-scored refusals and was inconsistent on A06. Ten answers from run 1 are in `eval/hand_check.csv` for human grading; that grading has not been done yet.
+- The judge is the same model family as the agent, so it is not independent. It mis-scored refusals and was inconsistent on A06. A human hand-check of 10 answers from run 1 agreed with it on 9 of 10 (see Human hand-check above), but 10 answers is a small sample.
 - The escalation/refusal check is a keyword match ("not covered", "escalate", "refus" and similar). It matched the nine escalations and refusals and did not match D05, but it is not a semantic check.
 - Articles are a 38-page snapshot and will go stale.

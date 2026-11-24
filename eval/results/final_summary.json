@@ -1,0 +1,187 @@
+{
+  "generated_utc": "2026-11-24T12:16:53+00:00",
+  "config": {
+    "chat_model": "gpt-4o-mini",
+    "agent_temperature": 0,
+    "judge_model": "gpt-4o-mini",
+    "judge_temperature": 0,
+    "embedding_model": "text-embedding-3-small",
+    "agent_retrieval": "hybrid (RRF), search_help k=5 by default",
+    "citation_mode": "structured chunk IDs, citations derived from returned chunks only",
+    "mcp_transport": "stdio, one persistent session per run",
+    "runs": 3
+  },
+  "retrieval_hit3_answerable": {
+    "answerable_count": 20,
+    "bm25_without_stopwords": 16,
+    "bm25": 17,
+    "embedding": 18,
+    "hybrid": 17
+  },
+  "across_runs": {
+    "answer_score_basis": "20 answerable questions only",
+    "mean_answer_score": {
+      "mean": 1.4833333333333334,
+      "min": 1.45,
+      "max": 1.5,
+      "values": [
+        1.5,
+        1.45,
+        1.5
+      ]
+    },
+    "score_2_count": {
+      "mean": 12,
+      "min": 12,
+      "max": 12,
+      "values": [
+        12,
+        12,
+        12
+      ]
+    },
+    "score_1_count": {
+      "mean": 5.666666666666667,
+      "min": 5,
+      "max": 6,
+      "values": [
+        6,
+        5,
+        6
+      ]
+    },
+    "score_0_count": {
+      "mean": 2.3333333333333335,
+      "min": 2,
+      "max": 3,
+      "values": [
+        2,
+        3,
+        2
+      ]
+    },
+    "citation_present_count": {
+      "mean": 19,
+      "min": 19,
+      "max": 19,
+      "values": [
+        19,
+        19,
+        19
+      ]
+    },
+    "citation_strict_correct_count": {
+      "mean": 12,
+      "min": 12,
+      "max": 12,
+      "values": [
+        12,
+        12,
+        12
+      ]
+    },
+    "citation_lenient_correct_count": {
+      "mean": 16,
+      "min": 16,
+      "max": 16,
+      "values": [
+        16,
+        16,
+        16
+      ]
+    },
+    "escalation_refusal_correct_count": {
+      "mean": 9,
+      "min": 9,
+      "max": 9,
+      "values": [
+        9,
+        9,
+        9
+      ]
+    },
+    "mean_input_tokens": {
+      "mean": 962.1888888888889,
+      "min": 944.6333333333333,
+      "max": 970.9666666666667,
+      "values": [
+        944.6333333333333,
+        970.9666666666667,
+        970.9666666666667
+      ]
+    },
+    "mean_output_tokens": {
+      "mean": 123.84444444444445,
+      "min": 120.9,
+      "max": 126.0,
+      "values": [
+        120.9,
+        124.63333333333334,
+        126.0
+      ]
+    },
+    "cost_per_answer_usd": {
+      "mean": 0.00021863499999999998,
+      "min": 0.000214235,
+      "max": 0.000221245,
+      "values": [
+        0.000214235,
+        0.00022042499999999998,
+        0.000221245
+      ]
+    },
+    "cost_per_100_usd": {
+      "mean": 0.021863499999999998,
+      "min": 0.0214235,
+      "max": 0.0221245,
+      "values": [
+        0.0214235,
+        0.022042499999999996,
+        0.0221245
+      ]
+    },
+    "median_latency_ms": {
+      "mean": 3067.8333333333335,
+      "min": 2945.0,
+      "max": 3275.0,
+      "values": [
+        3275.0,
+        2945.0,
+        2983.5
+      ]
+    }
+  },
+  "score_0_ids_per_run": [
+    [
+      "A08",
+      "A20"
+    ],
+    [
+      "A06",
+      "A08",
+      "A20"
+    ],
+    [
+      "A08",
+      "A20"
+    ]
+  ],
+  "escalation_failed_ids_per_run": [
+    [
+      "D05"
+    ],
+    [
+      "D05"
+    ],
+    [
+      "D05"
+    ]
+  ],
+  "spend_usd": {
+    "agent": 0.019677149999999997,
+    "judge": 0.0030029999999999996,
+    "query_embeddings_outside_mcp": 8.8e-06,
+    "note": "Query-embedding calls made inside the MCP server are not metered (about 10 tokens each)."
+  },
+  "rescored_from_saved_outputs": true
+}

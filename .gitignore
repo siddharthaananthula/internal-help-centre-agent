@@ -1,0 +1,21 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Secrets (keep the empty template)
+.env
+.env.*
+!.env.example
+
+# Third-party article content and indexes: never republish
+data/
+index/
+
+# Local call log
+*.db
+*.sqlite
+
+# Private working notes
+BRIEF.md
